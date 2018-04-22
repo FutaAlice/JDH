@@ -48,17 +48,22 @@ class Board:
                 key_red  = str(index * 2 + 0).zfill(3)
                 key_blue = str(index * 2 + 1).zfill(3)
                 
-                red32.append(JSON_OBJ[key_red]['u32'])
-                red64.append(JSON_OBJ[key_red]['u64'])
-                blue32.append(JSON_OBJ[key_blue]['u32'])
-                blue64.append(JSON_OBJ[key_blue]['u64'])
+                red32.append(int(JSON_OBJ[key_red]['u32']))
+                red64.append(int(JSON_OBJ[key_red]['u64']))
+                blue32.append(int(JSON_OBJ[key_blue]['u32']))
+                blue64.append(int(JSON_OBJ[key_blue]['u64']))
                 
             self.__hashtable32[Color.Red].append(red32)
             self.__hashtable64[Color.Red].append(red64)
             self.__hashtable32[Color.Blue].append(blue32)
             self.__hashtable64[Color.Blue].append(blue64)
             
-        print (self.__hashtable32, self.__hashtable64)
+        print ("red:")
+        for line in self.__hashtable64[Color.Red]:
+            print (line)
+        print ("blue:")
+        for line in self.__hashtable64[Color.Blue]:
+            print (line)
         
     def __str__(self):
         charset = { Color.Blue: 'b', Color.Red: 'r', Color.Empty: '_' }

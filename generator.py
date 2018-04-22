@@ -21,7 +21,8 @@ def check():
     json_obj = json.loads(contents)
     unique = set()
     for k, v in json_obj.items():
-        u64, u32 = v['u64'], v['u32']
+        u64, u32 = int(v['u64']), int(v['u32'])
+        # print (k, u32, u64)
         if u64 in unique or u32 in unique or u64 == u32:
             print (k)
             return False
@@ -32,8 +33,8 @@ if __name__ == "__main__":
     data = dict()
     for i in range(0, 1000):
         item = {
-            'u32': rand_unique(0, 0xFFFF),
-            'u64': rand_unique(0, 0xFFFFFFFF),
+            'u32': str(rand_unique(0, 0xFFFF)),
+            'u64': str(rand_unique(0, 0xFFFFFFFF)),
         }
         data[str(i).zfill(3)] = item
 
