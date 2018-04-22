@@ -13,26 +13,19 @@ class Color(enum.Enum):
     Red = 1
     Blue = 2
 
-"""
+class Board:
+    """
 Usage
 
-# Create an empty 5*5 hex board
-b = Board(5)
-
-# next player's color
-color = b.next
-
-# next player set a piece at (row:0, col:2)
-b.set(0, 2)
-
-# specific piece color
-b.force_set(2, 2, Color.Red)
-
-# withdraw
-b.reset(0, 2)
-
-"""
-class Board:
+b = Board(5)                    # Create an empty 5*5 hex board
+color = b.next                  # Get next player's color
+b.set(0, 2)                     # Next player set a piece at (row:0, col:2)
+b.reset(0, 2)                   # Withdraw
+b.force_set(2, 2, Color.Red)    # Specific piece color
+u32 = b.hash32()                # 32bit Zobrist-Hashing of current status
+u64 = b.hash64()                # 64bit Zobrist-Hashing of current status
+    
+    """
     def __init__(self, size):
         self.status = [[Color.Empty for _ in range(size)] for _ in range(size)]
         self.__size = size
