@@ -18,12 +18,11 @@ class Board:
 Usage
 
 b = Board(5)                    # Create an empty 5*5 hex board
-color = b.next                  # Get next player's color
+color = b.color()               # Get next player's color
 b.set(0, 2)                     # Next player set a piece at (row:0, col:2)
 b.reset(0, 2)                   # Withdraw
 b.force_set(2, 2, Color.Red)    # Specific piece color
-u32 = b.hash32()                # 32bit Zobrist-Hashing of current status
-u64 = b.hash64()                # 64bit Zobrist-Hashing of current status
+u32, u64 = b.hash()             # 32bit Zobrist-Hashing of current status
     
     """
     def __init__(self, size):
@@ -90,30 +89,28 @@ u64 = b.hash64()                # 64bit Zobrist-Hashing of current status
             raise TypeError('type of color:', type(color), 'unexpected.')
         self.status[row][col] = color
         
-    def hash32(self):
-        hash = 0
+    def hash(self):
+        hash32, hash64 = 0, 0
         for row in range(self.__size):
             for col in range(self.__size):
                 color = self.status[row][col]
                 if not color is Color.Empty:
-                    hash ^= self.__hashtable32[color][row][col]
-        return hash
+                    hash32 ^= self.__hashtable32[color][row][col]
+                    hash64 ^= self.__hashtable64[color][row][col]
+        return hash32, hash64
         
-    def hash64(self):
-        hash = 0
-        for row in range(self.__size):
-            for col in range(self.__size):
-                color = self.status[row][col]
-                if not color is Color.Empty:
-                    hash ^= self.__hashtable64[color][row][col]
-        return hash
+    def empty_points():
+        pass
         
 # test
 if __name__ == "__main__":
 
-    fuck = Board(5)
-    print (fuck.hash32())
-    fuck.force_set(0, 3, Color.Red)
-    fuck.set(0, 0)
-    print (fuck.hash32(), fuck.hash64())
-    print (fuck)
+    b = Board(5)                    # Create an empty 5*5 hex board
+    color = b.color()                  # Get next player's color
+    b.set(0, 2)                     # Next player set a piece at (row:0, col:2)
+    b.reset(0, 2)                   # Withdraw
+    b.force_set(2, 2, Color.Red)    # Specific piece color
+    u32, u64 = b.hash()             # 32bit Zobrist-Hashing of current status
+    print (u32, u64)
+    
+    print (b)
