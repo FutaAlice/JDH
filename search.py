@@ -6,22 +6,23 @@ Color   = zobrist.Color
 Board   = zobrist.Board
 
 class DFS:
-    def __init__(self, board, depth):
+    def __init__(self, board, depth, func):
         self.__board = board
         self.__depth = depth
+        self.__func = func
         
     def run(self):
         self.cnt = 0
         self.hash = set()
         self.__dfs(0, self.__board)
+        print ('total count:', self.cnt)
         
     def __dfs(self, current_depth, current_board):
         # set counter
         self.cnt += 1
     
-        # do something.
-        # print ('depth', current_depth, '/', self.__depth)
-        # print (current_board)
+        # callback function
+        self.__func(current_board, current_depth)
         
         # check depth
         if current_depth >= self.__depth:
@@ -50,8 +51,8 @@ class DFS:
         
 # test
 if __name__ == "__main__":
-    b = Board(4)
+    b = Board(3)
     
-    s = DFS(b, 99)
+    s = DFS(b, 3, lambda board, depth: print ('depth: %d\n%s' % (depth, str(board))))
+    
     s.run()
-    print (s.cnt)
