@@ -53,12 +53,12 @@ u32, u64 = b.hash()             # 32bit Zobrist-Hashing of current status
             self.__hashtable32[Color.Blue].append(blue32)
             self.__hashtable64[Color.Blue].append(blue64)
             
-        print ("red:")
-        for line in self.__hashtable64[Color.Red]:
-            print (line)
-        print ("blue:")
-        for line in self.__hashtable64[Color.Blue]:
-            print (line)
+        # print ("red:")
+        # for line in self.__hashtable64[Color.Red]:
+        #     print (line)
+        # print ("blue:")
+        # for line in self.__hashtable64[Color.Blue]:
+        #     print (line)
         
     def __str__(self):
         charset = { Color.Blue: 'b', Color.Red: 'r', Color.Empty: '_' }

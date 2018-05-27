@@ -15,8 +15,7 @@ def check_at_start():
             print ('fail!')
             return
     print ('success')
-        
+    
 # main
 if __name__ == "__main__":
     check_at_start()
-    pass
