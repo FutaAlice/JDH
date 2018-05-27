@@ -2,10 +2,13 @@ import enum
 import json
 
 import generator
+import pos
 
 with open(generator.FILE_NAME) as f:
     contents = f.read()
 JSON_OBJ = json.loads(contents)
+
+Pos = pos.Pos
 
 # Color = enum.Enum('Color', ('Empty', 'Red', 'Blue'))
 class Color(enum.Enum):
@@ -99,8 +102,14 @@ u32, u64 = b.hash()             # 32bit Zobrist-Hashing of current status
                     hash64 ^= self.__hashtable64[color][row][col]
         return hash32, hash64
         
-    def empty_points():
-        pass
+    def empty_points(self):
+        points = list()
+        for row in range(self.__size):
+            for col in range(self.__size):
+                color = self.status[row][col]
+                if color is Color.Empty:
+                    points.append(Pos(row, col))
+        return points
         
 # test
 if __name__ == "__main__":
@@ -112,5 +121,7 @@ if __name__ == "__main__":
     b.force_set(2, 2, Color.Red)    # Specific piece color
     u32, u64 = b.hash()             # 32bit Zobrist-Hashing of current status
     print (u32, u64)
+    
+    print (b.empty_points())
     
     print (b)
