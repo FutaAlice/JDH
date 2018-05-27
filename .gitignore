@@ -2,7 +2,6 @@ Debug/
 Release/
 __pycache__/
 *.pyc
-*.json
 *.dll
 *.docx
 *.conf
